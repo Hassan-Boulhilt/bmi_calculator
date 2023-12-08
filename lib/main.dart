@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'const.dart';
 import 'coreapp.dart';
 
 void main() {
@@ -15,17 +16,13 @@ class MainApp extends StatelessWidget {
       title: 'BMI CALCULATOR',
       theme: ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0A0D22),
-          shadowColor: Color(0xFF070918),
+          backgroundColor: kAppBarColor,
+          shadowColor: kAppBarShadowColor,
           elevation: 10,
         ),
-        scaffoldBackgroundColor: const Color(0xFF0A0D22),
-        sliderTheme: const SliderThemeData(
-            trackHeight: 2,
-            overlayColor: Color(0xFF31142F),
-            overlayShape: RoundSliderOverlayShape(overlayRadius: 20)),
+        scaffoldBackgroundColor: kScafoldbackgroundCol,
       ),
-      home: const CoreApp(title: 'BMI CALCULATOR'),
+      home: const CoreAppHomePage(title: 'BMI CALCULATOR'),
     );
   }
 }
