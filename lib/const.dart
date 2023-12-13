@@ -15,7 +15,15 @@ const Color kFloatingActionButtonColor = Color.fromARGB(255, 35, 38, 61);
 
 const kLabelTextStyle = TextStyle(fontSize: 18, color: kCouleurCardChilds);
 const kBigNumberStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 60);
-
+const kTextStyleBottomPinkedContainer =
+    TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
+const kYourResultTextStyle =
+    TextStyle(fontSize: 36, fontWeight: FontWeight.bold);
+const kResultTextStyle = TextStyle(
+    color: Color(0xFF24D876), fontSize: 22, fontWeight: FontWeight.bold);
+const kBmiNumberResultStyle =
+    TextStyle(fontSize: 100, fontWeight: FontWeight.bold);
+const kBmiTextStyle = TextStyle(fontSize: 22);
 // Numbers
 
 const kMinValue = 120.0;

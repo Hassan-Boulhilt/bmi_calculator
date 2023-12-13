@@ -17,18 +17,15 @@ class MyCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: marginSize!, horizontal: 4),
-        width: double.infinity,
-        height: heightSize,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: couleur,
-        ),
-        child: cardChild,
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: marginSize!, horizontal: 4),
+      width: double.infinity,
+      height: heightSize,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: couleur,
       ),
+      child: cardChild,
     );
   }
 }
@@ -61,64 +58,57 @@ class ChildCardIconContent extends StatelessWidget {
   }
 }
 
-class WeightAgeCounter extends StatefulWidget {
-  const WeightAgeCounter({
-    super.key,
-    required this.label,
-  });
-  final String label;
-
-  @override
-  State<WeightAgeCounter> createState() => _WeightAgeCounterState();
+Color toggleColor(bool selectedCard) {
+  return selectedCard ? kActiveCardColor : kInactiveCardColor;
 }
 
-class _WeightAgeCounterState extends State<WeightAgeCounter> {
-  int counter = 10;
+class BottomButtonBMI extends StatelessWidget {
+  const BottomButtonBMI({
+    super.key,
+    required this.onTap,
+    required this.buttonLable,
+  });
+  final Function onTap;
+  final String buttonLable;
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Text(
-        widget.label,
-        style: kLabelTextStyle,
-      ),
-      Text(
-        counter.toString(),
-        style: kBigNumberStyle,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                counter > 0 ? counter-- : counter = 0;
-              });
-            },
-            backgroundColor: kFloatingActionButtonColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100.0),
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+          margin: const EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(bottom: 10),
+          color: kColorContainerPink,
+          width: double.infinity,
+          height: 80,
+          child: Center(
+            child: Text(
+              buttonLable,
+              style: kTextStyleBottomPinkedContainer,
             ),
-            child: const Icon(Icons.remove),
-          ),
-          const SizedBox(width: 16),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                counter++;
-              });
-            },
-            backgroundColor: kFloatingActionButtonColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100.0),
-            ),
-            child: const Icon(Icons.add),
-          )
-        ],
-      )
-    ]);
+          )),
+    );
   }
 }
 
-Color toggleColor(bool selectedCard) {
-  return selectedCard ? kActiveCardColor : kInactiveCardColor;
+Route createRoute(Widget page) {
+  return PageRouteBuilder(
+    reverseTransitionDuration: const Duration(milliseconds: 500),
+    transitionDuration: const Duration(milliseconds: 500),
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
